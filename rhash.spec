@@ -1,10 +1,13 @@
 Name:           rhash
-Version:        1.3.5
-Release:        5
+Version:        1.4.0
+Release:        1
 Summary:        Great utility for computing hash sums
 License:        MIT
 URL:            https://github.com/rhash/RHash
 Source0:        https://github.com/rhash/RHash/archive/v%{version}/rhash-%{version}.tar.gz
+
+BuildRequires:	gcc
+BuildRequires:	-gcc_secure
 
 %description
 RHash is designed to calculate  and verificate magnet links and hash sums.
@@ -31,14 +34,13 @@ Documentation for rhash
 %autosetup -n RHash-%{version}
 sed -i -e '/^INSTALL_SHARED/s/644/755/' librhash/Makefile
 
-
 %build
+./configure --prefix=%{_prefix} --exec-prefix=%{_prefix} --bindir=%{_bindir} --sysconfdir=%{_sysconfdir} --libdir=%{_libdir} --mandir=%{_mandir} --enable-lib-shared --enable-gettext
 %make_build OPTFLAGS="%{optflags}" OPTLDFLAGS="-g %{?__global_ldflags}" build-shared
 
 %install
-make DESTDIR=%{buildroot} PREFIX=%{_prefix} LIBDIR=%{_libdir} install-shared install-lib-shared
-make DESTDIR=%{buildroot} PREFIX=%{_prefix} LIBDIR=%{_libdir} -C librhash install-so-link install-headers
-
+%make_install
+make DESTDIR=%{buildroot} -C librhash install-so-link install-lib-headers
 
 %check
 make test-shared
@@ -58,12 +60,13 @@ make test-shared
 %{_libdir}/*.so
 
 %files help
-%doc README
+%doc ChangeLog README.md
 %{_mandir}/man1/*.1*
 
-
-
 %changelog
+* Mon Jul 20 2020 jinzhimin<jinzhimin2@huawei.com> - 1.4.0-1
+- Upgrade to 1.4.0
+
 * Sat Dec 4 2019 lihao <lihao129@huawei.com> - 1.3.5-5
 - Bump release for updating binary package in OBS
 
