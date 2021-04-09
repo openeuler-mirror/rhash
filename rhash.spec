@@ -1,13 +1,12 @@
 Name:           rhash
 Version:        1.4.0
-Release:        1
+Release:        2
 Summary:        Great utility for computing hash sums
 License:        MIT
 URL:            https://github.com/rhash/RHash
 Source0:        https://github.com/rhash/RHash/archive/v%{version}/rhash-%{version}.tar.gz
 
 BuildRequires:	gcc
-BuildRequires:	-gcc_secure
 
 %description
 RHash is designed to calculate  and verificate magnet links and hash sums.
@@ -64,6 +63,9 @@ make test-shared
 %{_mandir}/man1/*.1*
 
 %changelog
+* Thu Apr 8 2021 shenyangyang <shenyangyang4@huawei.com> - 1.4.0-2
+- Delete unneeded build requires
+
 * Wed Aug 19 2020 shixuantong <shixuantong@huawei.com> - 1.4.0-1
 - Upgrade to 1.4.0
 
