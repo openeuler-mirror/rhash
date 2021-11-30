@@ -1,6 +1,6 @@
 Name:           rhash
-Version:        1.4.0
-Release:        2
+Version:        1.4.2
+Release:        1
 Summary:        Great utility for computing hash sums
 License:        MIT
 URL:            https://github.com/rhash/RHash
@@ -63,6 +63,9 @@ make test-shared
 %{_mandir}/man1/*.1*
 
 %changelog
+* Tue Nov 30 2021 zoulin <zoulin13@huawei.com> - 1.4.2-1
+- Upgrade to 1.4.2
+
 * Thu Apr 8 2021 shenyangyang <shenyangyang4@huawei.com> - 1.4.0-2
 - Delete unneeded build requires
 
