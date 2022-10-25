@@ -1,0 +1,26 @@
+From 79a1a0b3d267893c40ac31192b20e20969a3a79c Mon Sep 17 00:00:00 2001
+From: Aleksey <rhash.admin@gmail.com>
+Date: Sun, 12 Dec 2021 16:27:55 +0300
+Subject: [PATCH] Fix bug with hash options in --check mode
+
+---
+ hash_check.c | 3 ++-
+ 1 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/hash_check.c b/hash_check.c
+index 4cffdc6..4d44d0d 100644
+--- a/hash_check.c
++++ b/hash_check.c
+@@ -1262,7 +1262,8 @@ static void set_parser_flags_by_file_extension(struct hash_parser_ext* parser)
+ 	struct file_ext ext;
+ 	if (!extract_uppercase_file_ext(&ext, parser->hash_file))
+ 		return;
+-	parser->expected_hash_mask = bsd_hash_name_to_id(ext.buffer, ext.length);
++	if (!parser->expected_hash_mask)
++		parser->expected_hash_mask = bsd_hash_name_to_id(ext.buffer, ext.length);
+ 	if (ext.length == 3 && memcmp(ext.buffer, "SFV", 3) == 0)
+ 		parser->is_sfv = 1;
+ }
+-- 
+2.27.0
+
