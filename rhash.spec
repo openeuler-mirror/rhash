@@ -35,6 +35,9 @@ Documentation for rhash
 
 %prep
 %autosetup -n RHash-%{version} -p1
+%ifnarch sw_64
+%patch1 -R -p1
+%endif
 sed -i -e '/^INSTALL_SHARED/s/644/755/' librhash/Makefile
 
 %build
