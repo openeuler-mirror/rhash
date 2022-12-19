@@ -1,6 +1,6 @@
 Name:           rhash
 Version:        1.4.2
-Release:        2
+Release:        3
 Summary:        Great utility for computing hash sums
 License:        MIT
 URL:            https://github.com/rhash/RHash
@@ -8,6 +8,7 @@ Source0:        https://github.com/rhash/RHash/archive/v%{version}/rhash-%{versi
 
 #References: https://github.com/rhash/RHash/commit/79a1a0b3d267893c40ac31192b20e20969a3a79c
 Patch0: Fix-bug-with-hash-options-in-check-mode.patch
+Patch1: RHash-1.4.2-sw.patch
 
 BuildRequires:	gcc
 
@@ -33,7 +34,11 @@ Summary:        Documentation for rhash
 Documentation for rhash
 
 %prep
-%autosetup -n RHash-%{version}
+%setup -n RHash-%{version} 
+%patch0 -p1
+%ifarch sw_64
+%patch1 -p1
+%endif
 sed -i -e '/^INSTALL_SHARED/s/644/755/' librhash/Makefile
 
 %build
@@ -66,6 +71,9 @@ make test-shared
 %{_mandir}/man1/*.1*
 
 %changelog
+* Tue Oct 25 2022 wuzx<wuzx1226@qq.com> - 1.4.2-3
+- Add sw64 architecture
+
 * Fri Oct 21 2022 zhangruifang <zhangruifang1@h-partners.com> - 1.4.2-2
 - Fix bug with hash options in check mode
 
