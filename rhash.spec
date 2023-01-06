@@ -1,13 +1,13 @@
 Name:           rhash
 Version:        1.4.2
-Release:        2
+Release:        3
 Summary:        Great utility for computing hash sums
 License:        MIT
 URL:            https://github.com/rhash/RHash
 Source0:        https://github.com/rhash/RHash/archive/v%{version}/rhash-%{version}.tar.gz
 
 Patch1:         0001-fix-incorrect-total-message-in-check-embedded-mode.patch 
-
+Patch2:         0001-Fix-install-gmo-target-to-recompile-gmo-files-only-i.patch
 BuildRequires:	gcc
 
 %description
@@ -65,6 +65,9 @@ make test-shared
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Jan 6 2023 caofei <caofei@xfusion.com> - 1.4.2-3
+- Fix install-gmo target to recompile gmo files only if needed
+
 * Fri Jan 6 2023 caofei <caofei@xfusion.com> - 1.4.2-2
 - fix incorrect total message in check-embedded mode
 
