@@ -1,0 +1,41 @@
+From 9e4eeb1268149b24b7fbe0fc0fe91e3a266e6261 Mon Sep 17 00:00:00 2001
+From: Aleksey <rhash.admin@gmail.com>
+Date: Sun, 31 Oct 2021 02:49:04 +0300
+Subject: [PATCH] Fix install-gmo target to recompile gmo files only if needed
+
+---
+ Makefile | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 6031e43..c127379 100644
+--- a/Makefile
++++ b/Makefile
+@@ -293,7 +293,7 @@ clean-bindings:
+ 
+ clean-local:
+ 	rm -f *.o $(RHASH_SHARED) $(RHASH_STATIC)
+-	rm -f po/*.gmo po/*.po~
++	rm -f po/*.gmo po/*.po~ po/compile-gmo.tag
+ 
+ distclean: clean-local
+ 	rm -f config.log config.mak $(SPECFILE) $(LIBRHASH_PC)
+@@ -309,11 +309,14 @@ update-po:
+ 		msgmerge -U $$f po/rhash.pot; \
+ 	done
+ 
+-compile-gmo:
++po/compile-gmo.tag: $(I18N_FILES)
+ 	for f in $(I18N_FILES); do \
+ 		g=`basename $$f .po`; \
+ 		msgfmt -o po/$$g.gmo $$f; \
+ 	done
++	touch $@
++
++compile-gmo: po/compile-gmo.tag
+ 
+ install-gmo: compile-gmo
+ 	for f in $(I18N_FILES); do \
+-- 
+2.33.0
+
