@@ -1,6 +1,6 @@
 Name:           rhash
 Version:        1.4.2
-Release:        3
+Release:        4
 Summary:        Great utility for computing hash sums
 License:        MIT
 URL:            https://github.com/rhash/RHash
@@ -8,6 +8,7 @@ Source0:        https://github.com/rhash/RHash/archive/v%{version}/rhash-%{versi
 
 Patch1:         0001-fix-incorrect-total-message-in-check-embedded-mode.patch 
 Patch2:         0001-Fix-install-gmo-target-to-recompile-gmo-files-only-i.patch
+Patch3:         0002-fix-syntax-for-checking-compiler.patch
 BuildRequires:	gcc
 
 %description
@@ -65,6 +66,9 @@ make test-shared
 %{_mandir}/man1/*.1*
 
 %changelog
+* Sun May 28 2023 Xiaoya Huang <huangxiaoya@iscas.ac.cn> - 1.4.2-4
+- Fix incorrect syntax for checking compiler in configure file
+
 * Fri Jan 6 2023 caofei <caofei@xfusion.com> - 1.4.2-3
 - Fix install-gmo target to recompile gmo files only if needed
 
